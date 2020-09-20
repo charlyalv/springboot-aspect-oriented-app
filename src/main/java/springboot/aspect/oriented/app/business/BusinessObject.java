@@ -1,7 +1,7 @@
 package springboot.aspect.oriented.app.business;
 
 import org.springframework.stereotype.Component;
-import springboot.aspect.oriented.app.metric.IncrementCountMetric;
+import springboot.aspect.oriented.app.business.metric.IncrementCountMetric;
 
 @Component
 public class BusinessObject {
