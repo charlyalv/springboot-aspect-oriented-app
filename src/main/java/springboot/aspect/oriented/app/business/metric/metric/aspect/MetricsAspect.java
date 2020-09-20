@@ -4,6 +4,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
+import springboot.aspect.oriented.app.business.metric.IncrementCountMetric;
 import springboot.aspect.oriented.app.client.apm.APMClient;
 
 @Aspect
@@ -16,9 +17,12 @@ public class MetricsAspect {
         this.client = client;
     }
 
-    @Around("@annotation(springboot.aspect.oriented.app.business.metric.IncrementCountMetric)")
-    public Object incrementCount(ProceedingJoinPoint joinPoint) throws Throwable {
-        client.incrementCount("xxx");
-        return joinPoint.proceed();
+    @Around("@annotation(incrementCountMetric)")
+    public Object incrementCount(ProceedingJoinPoint joinPoint,
+                                 IncrementCountMetric incrementCountMetric) throws Throwable {
+
+        final Object proceed = joinPoint.proceed();
+        client.incrementCount(incrementCountMetric.metricName());
+        return proceed;
     }
 }

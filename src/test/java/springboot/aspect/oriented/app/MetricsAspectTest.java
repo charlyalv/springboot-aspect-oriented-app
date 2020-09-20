@@ -22,6 +22,6 @@ class MetricsAspectTest {
     void shouldCallAnAspectForMetrics() {
         businessObject.doSomeBusinessOperation();
 
-        verify(apmClient).incrementCount("xxx");
+        verify(apmClient).incrementCount("example.of.metric");
     }
 }
